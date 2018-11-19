@@ -32,6 +32,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
     // Login Route
     $routes->connect('/login', ['controller' => 'Mitla', 'action' => 'login']);
+    $routes->connect('/user_settings', ['controller' => 'Mitla', 'action' => 'userSettings']);
+    $routes->connect('/search_film', ['controller' => 'Mitla', 'action' => 'searchFilm']);
 
     $routes->fallbacks(DashedRoute::class);
 });
