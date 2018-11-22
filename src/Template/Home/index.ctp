@@ -9,7 +9,7 @@
             echo $this->Html->link(
                 'Login',
                 '/login',
-                ['class' => 'btn btn-primary form-control', 'target' => '_blank']
+                ['class' => 'btn btn-primary form-control']
             );
             ?>
             <hr>
@@ -17,7 +17,7 @@
             echo $this->Html->link(
                 'User Settings',
                 '/user_settings',
-                ['class' => 'btn btn-primary form-control', 'target' => '_blank']
+                ['class' => 'btn btn-primary form-control']
             );
             ?>                      
             <hr>
@@ -25,7 +25,7 @@
             echo $this->Html->link(
                 'Search Film',
                 '/search_film',
-                ['class' => 'btn btn-primary form-control', 'target' => '_blank']
+                ['class' => 'btn btn-primary form-control']
             );
             ?>
             <hr>            

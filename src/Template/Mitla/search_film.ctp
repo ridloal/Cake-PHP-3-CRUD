@@ -1,9 +1,3 @@
-<?php
-  //melakukan koneksi kedalam server 
-  $connect = mysqli_connect("localhost","root","") or die ("connectiing server failed".mysqli_error());
-  //melakukan pilihan ke database
-  mysqli_select_db($connect, "mitla") or die ("database failed".mysqli_error());
-?>
 
 <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
   <div class="row">
@@ -11,7 +5,12 @@
       <div class="login-panel panel panel-default">
         <div class="panel-heading">Search Film</div>
         <div class="panel-body">
-          <form action="act.php?code=search_film" method="POST" data-toggle="validator" role="form">
+          <?php 
+            echo $this->Form->create(null, [
+                'url' => ['controller' => 'Mitla', 'action' => 'searchFilm'],
+                'data-toggle' => 'validator'
+            ]);
+          ?>
             <fieldset>
               <table class="table">
                 <tbody>
@@ -22,17 +21,15 @@
                   <tr>
                     <td>Pilih Berdasarkan Genre</td>
                     <td>
-                      <?php 
-                      $a = "SELECT * FROM label";
-                      $b = mysqli_query($connect, $a);
-                      while($dt = mysqli_fetch_array($b)) { ?>   
+
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox" name="labelid[]" value="<?=$dt['label_id']?>"> <?=$dt['nama']?>
+                            <?php foreach ($genre as $dt): ?>
+                              <input type="checkbox" name="labelid[]" value="<?=$dt['label_id']?>"> <?=$dt['nama']?> <br>
+                            <?php endforeach ?>
                           </label>
                         </div>
-                      <?php } ?>
-                      
+
                     </td>
                   </tr>
                 </tbody>
@@ -46,13 +43,9 @@
 
           <hr>
 
-          <?php if (isset($_SESSION['check'])): 
-            $searchkey = $_SESSION['searchkey'];
-            $check_total = $_SESSION['check_total'];
-            $labelid = $_SESSION['labelid'];
-          ?>
+          <?php if ($hasil!=null): ?>
             
-            <table class="table table-stripped table-bordered">
+            <table id="datatable1" class="table table-stripped table-bordered">
               <thead>
                 <th>No</th>
                 <th>ID Film</th>
@@ -61,29 +54,16 @@
               </thead>
               <tbody>
                 <?php 
-                  $no=1;
-                  if ($check_total == 0) {
-                    $a = "SELECT f.film_id, f.nama AS nama_film, group_concat(l.nama SEPARATOR ', ') AS nama_label FROM label_film RIGHT JOIN film f using(film_id) LEFT JOIN label l using(label_id) WHERE film_id IN(SELECT f.film_id FROM label_film RIGHT JOIN film f using(film_id) LEFT JOIN label l using(label_id) GROUP BY film_id HAVING(count(f.film_id) >= $check_total)) AND f.nama LIKE '%$searchkey%' GROUP BY film_id";
-                  }else{
-                    $a = "SELECT f.film_id, f.nama AS nama_film, group_concat(l.nama SEPARATOR ', ') AS nama_label FROM label_film RIGHT JOIN film f using(film_id) LEFT JOIN label l using(label_id) WHERE film_id IN(SELECT f.film_id FROM label_film RIGHT JOIN film f using(film_id) LEFT JOIN label l using(label_id) WHERE label_id IN($labelid) GROUP BY film_id HAVING(count(f.film_id) >= $check_total)) AND f.nama LIKE '%$searchkey%' GROUP BY film_id";
-                  }
-                  $b = mysqli_query($connect, $a);
-                  while($dt = mysqli_fetch_array($b)) {
-                ?>
+                $no = 1;
+                foreach ($hasil as $d): ?>
                   <tr>
                     <td><?=$no++;?></td>  
-                    <td><?=$dt['film_id']?></td>  
-                    <td><?=$dt['nama_film']?></td>  
-                    <td><?=$dt['nama_label']?></td>  
+                    <td><?=$d['film_id']?></td>  
+                    <td><?=$d['nama_film']?></td>  
+                    <td><?=$d['nama_label']?></td>  
                   </tr>
+                <?php endforeach ?>
 
-                <?php
-                unset($_SESSION['check']);
-                unset($_SESSION['searchkey']);
-                unset($_SESSION['check_total']);
-                unset($_SESSION['labelid']);
-
-                } ?>
               </tbody>
             </table>
 
@@ -96,3 +76,31 @@
     </div><!-- /.col-->
   </div><!-- /.row -->
 </div>
+
+<script>
+  $(document).ready( function () {
+      $('#datatable1').DataTable({
+        "searching": false,
+        "lengthChange": false,
+        "pageLength": 2,
+        "decimal":        "",
+        "emptyTable":     "No data available in table",
+        "info":           "",
+        "infoEmpty":      "",
+        "infoFiltered":   "",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "lengthMenu":     "",
+        "loadingRecords": "Loading...",
+        "processing":     "Processing...",
+        "search":         "",
+        "zeroRecords":    "No matching records found",
+        "paginate": {
+            "first":      "First",
+            "last":       "Last",
+            "next":       "Next",
+            "previous":   "Previous"
+            },
+      });
+  } );
+</script>

@@ -4,7 +4,37 @@
       <div class="login-panel panel panel-default">
         <div class="panel-heading">User Basic Information</div>
         <div class="panel-body">
-          <form action="act.php?code=user_settings" method="POST" data-toggle="validator" role="form">
+          <?php 
+            echo $this->Form->create(null, [
+                'url' => ['controller' => 'Mitla', 'action' => 'userSettings'],
+                'data-toggle' => 'validator'
+            ]);
+          ?>
+
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <?php if ($status == 0): ?>
+                              <h4 class="modal-title" align="center" style="background-color: black; color: white;">Response Message</h4>
+                            <?php else: ?>
+                              <h4 class="modal-title" align="center" style="background-color: red; color: white;">Response Message</h4>
+                            <?php endif ?>
+                        </div>
+                        <div class="modal-body">
+                          <p align="center"><?=$message;?></p>
+                        </div>
+                        <div class="modal-footer">
+                            <center><button type="button" class="btn btn-primary" data-dismiss="modal">Close</button></center>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+          
             <fieldset>
               <table class="table">
                 <tbody>
@@ -44,7 +74,7 @@
                     <td>Login ID</td>
                     <td colspan="2">
                       <div class="form-group">
-                        <input class="form-control" placeholder="" name="login_id" type="text" readonly value="">
+                        <input class="form-control" placeholder="" name="login_id" type="text" readonly value="<?=$this->request->session()->read('id');?>">
                         <div class="help-block with-errors"></div>
                       </div>
                     </td>
@@ -218,12 +248,11 @@ document.getElementById('rnpass').addEventListener('change', function () {
   });
 </script>
 
-<?php if (isset($_SESSION['check'])): ?>
+<?php if ($check!=null): ?>
   <script type="text/javascript">
        $(window).load(function(){
            $('#myModal').modal('show');
         });
   </script> 
 <?php
-unset($_SESSION['check']);
 endif ?>

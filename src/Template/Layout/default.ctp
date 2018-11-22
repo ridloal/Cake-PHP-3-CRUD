@@ -8,9 +8,11 @@
         <?= h($title) ?>
     </title>
     <?= $this->Html->css('bootstrap.min') ?>
+    <?= $this->Html->css('datatables.min') ?>
     <?= $this->Html->script('jquery.min') ?>
     <?= $this->Html->script('bootstrap.min', ['block' => 'scriptBottom']) ?>
     <?= $this->Html->script('validator', ['block' => 'scriptBottom']) ?>
+    <?= $this->Html->script('datatables.min', ['block' => 'scriptBottom']) ?>
 
     <!-- Fetch Meta CSS And Script -->
     <?= $this->fetch('meta') ?>
@@ -22,7 +24,7 @@
     <nav class="navbar navbar-findcond navbar-fixed-top" style="background: #2d3246; marg">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://localhost/mitla_practice/" style="color: white;">MITLA</a>
+            <a class="navbar-brand" href="http://localhost/mitla_practice_cake/" style="color: white;">MITLA</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
@@ -56,4 +58,5 @@
     <!-- end footer -->
 <?= $this->fetch('scriptBottom') ?>
 </body>
+
 </html>

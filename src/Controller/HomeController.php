@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Cake\Routing\Router;
+
 class HomeController extends AppController
 {
 
