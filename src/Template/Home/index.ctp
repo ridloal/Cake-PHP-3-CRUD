@@ -45,7 +45,15 @@
                 ['class' => 'btn btn-primary form-control']
             );
             ?>
-            <hr>            
+            <hr>
+            <?php 
+            echo $this->Html->link(
+                'CRUD',
+                '/latihan/crudView',
+                ['class' => 'btn btn-primary form-control']
+            );
+            ?>
+            <hr>             
         </div>
       </div>
     </div><!-- /.col-->
