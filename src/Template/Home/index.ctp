@@ -32,5 +32,23 @@
         </div>
       </div>
     </div><!-- /.col-->
+
+    <div class="col-md-6 col-md-offset-3">
+      <div class="login-panel panel panel-default">
+        <div class="panel-heading">Self Learning</div>
+        <div class="panel-body">
+            <hr>
+            <?php 
+            echo $this->Html->link(
+                'Session Manager',
+                '/latihan/session',
+                ['class' => 'btn btn-primary form-control']
+            );
+            ?>
+            <hr>            
+        </div>
+      </div>
+    </div><!-- /.col-->
+
   </div><!-- /.row -->
 </div>

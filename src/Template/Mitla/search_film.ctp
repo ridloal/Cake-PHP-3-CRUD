@@ -69,8 +69,6 @@
 
           <?php endif ?>
           
-
-
         </div>
       </div>
     </div><!-- /.col-->
