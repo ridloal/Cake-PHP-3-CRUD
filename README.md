@@ -1,3 +1,5 @@
-# mitla_practice_cake
+# development_practice_cake
 
-This is Mitla Practice that use Cake PHP Framework
+This is Development Practice that use Cake PHP Framework v3
+
+some feature like crud, session, verification etc.
